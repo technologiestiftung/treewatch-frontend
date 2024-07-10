@@ -1,38 +1,29 @@
-import { getBaseUrl } from '@lib/utils/urlUtil'
+export type TreeRainAmountType = number;
 
-type RawTreeRainAmountType = {
-  sum_rainfall_in_mm: number
+interface RainfallData {
+  tree_id: string;
+  rainfall_in_mm: number;
 }
-
-export type TreeRainAmountType = number
-
-const TREE_ID_COLUMN_NAME = 'tree_id'
-
 /**
  * Fetches the rain data for a tree (in mm for the current day).
  * @param treeId string
  * @returns Promise<TreeRainAmountType[] | undefined>
  */
 export const getTreeRainAmount = async (
-  treeId: string
+  treeId: string,
 ): Promise<TreeRainAmountType | undefined> => {
-  if (!treeId) return
-
-  const REQUEST_URL = `${getBaseUrl()}/api/trees/rainfall`
-
-  const REQUEST_PARAMS = new URLSearchParams({
-    [TREE_ID_COLUMN_NAME]: `${treeId}`,
-  })
-
-  const response = await fetch(`${REQUEST_URL}?${REQUEST_PARAMS.toString()}`)
-
+  if (!treeId) return;
+  const response = await fetch("/rainfall.json");
   if (!response.ok) {
-    const txt = await response.text()
-    console.error(txt)
-    throw new Error(txt)
+    const txt = await response.text();
+    console.error(txt);
+    throw new Error(txt);
   }
+  const rainfallData = await response.json() as RainfallData[];
 
-  const { data } = (await response.json()) as { data: RawTreeRainAmountType }
+  const rainfallForTree = rainfallData.find((
+    rainfall: RainfallData,
+  ) => rainfall.tree_id === treeId);
 
-  return data.sum_rainfall_in_mm
-}
+  return rainfallForTree?.rainfall_in_mm;
+};
