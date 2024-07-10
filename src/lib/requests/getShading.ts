@@ -1,7 +1,7 @@
-import { Database } from "@lib/types/database";
-import { getCurrentSeason } from "@lib/utils/getCurrentSeason";
+import { Database } from '@lib/types/database'
+import { getCurrentSeason } from '@lib/utils/getCurrentSeason'
 
-export type ShadingType = Database["public"]["Tables"]["shading"]["Row"];
+export type ShadingType = Database['public']['Tables']['shading']['Row']
 /**
  * Fetches the current shading data for a tree.
  * @param treeId string
@@ -9,26 +9,26 @@ export type ShadingType = Database["public"]["Tables"]["shading"]["Row"];
  * @returns Promise<number | undefined>
  */
 export const getShading = async (
-  treeId: string,
+  treeId: string
 ): Promise<number | undefined> => {
-  const currentSeason = getCurrentSeason();
+  const currentSeason = getCurrentSeason()
 
   if (!currentSeason) {
-    console.error("Unable to find shading data for current season");
-    return;
+    console.error('Unable to find shading data for current season')
+    return
   }
 
-  const response = await fetch("/shading.json");
+  const response = await fetch('/shading.json')
   if (!response.ok) {
-    const txt = await response.text();
-    console.error(txt);
-    throw new Error(txt);
+    const txt = await response.text()
+    console.error(txt)
+    throw new Error(txt)
   }
-  const shadingData = await response.json() as ShadingType[];
+  const shadingData = (await response.json()) as ShadingType[]
 
-  const shadingForTree = shadingData.find((
-    shading: ShadingType,
-  ) => shading.tree_id === treeId);
+  const shadingForTree = shadingData.find(
+    (shading: ShadingType) => shading.tree_id === treeId
+  )
 
-  return shadingForTree && (shadingForTree[currentSeason] as number);
-};
+  return shadingForTree && (shadingForTree[currentSeason] as number)
+}
