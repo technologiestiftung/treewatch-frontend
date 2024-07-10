@@ -103,7 +103,7 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
     data: shadingData,
     error: shadingError,
     isLoading: shadingIsLoading,
-  } = useShadingData(treeData?.id, csrfToken)
+  } = useShadingData(treeData?.id)
 
   const { data: forecastData, error: forecastError } = useForecastData(
     treeData?.id,
