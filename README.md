@@ -3,6 +3,42 @@
 # Quantified Trees – Baumblick
 > The app **Baumblick** is part of a federally funded project called [**Quantified Trees**](https://qtrees.ai/) (QTrees). It is thus part of the German adoption strategy to climate change with focus on how to help city trees to not suffer and die because of rising temperatures and more and more frequent droughts. The app tells the story of each Berlin city tree by using a vast amount of open data like location and tree specific data. On an interactive map users can see how thirsty city trees of Berlin are. More precisely, it visualizes the trees' ground suction tension. This suction tension represents the amount of energy tree roots need in order to suck out water from the soil. Using open data as well as sensors distributed under the ground, an AI developed by [Birds on Mars](https://www.birdsonmars.com/) is able to generate nowcasts and a 14-days forecasts for each tree – even for those that are not equipped with sensors! The app is oriented towards the public and should inform in a simple and intuitive way.
 
+## Attention: This project is about to be archived (2024-07-11)
+This project is about to be archived. To keep it working without backend, database and vector tiles, we have prepared static data that is used instead. Please see https://github.com/technologiestiftung/baumblick-frontend/pull/124 for reference. The snapshot data has the following format and contains all data needed for the frontend to work properly with ~47k trees.  Please not that the forecast values are generated randomly.
+
+```
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.502675622307946,
+                    52.40368675459003
+                ]
+            },
+            "properties": {
+                "trees_id": "00008100:0011dd1c",
+                "nowcast_values_30cm": 105.91428,
+                "nowcast_values_60cm": 108.66888,
+                "nowcast_values_90cm": 41.63244,
+                "nowcast_values_stamm": 85.4052,
+                "trees_lat": 52.40368675459003,
+                "trees_lng": 13.502675622307946,
+                "baumscheibe_m2": null,
+                "shading_spring": 0.63,
+                "shading_summer": 0.5,
+                "shading_fall": 0.63,
+                "shading_winter": 0.8,
+                "rainfall_in_mm": 1.210145
+            }
+        }
+    ]
+}
+```
+
 ## Context
 
 Climate change is causing increasingly hot, dry weather in many places. In recent years, Berlin has also experienced more hot days than ever before. Determining whether trees are in need of water isn't as easy as looking at the ground on the surface level. Many factors such as the tree's age, specie, plate size or ground quality play an important role. Old trees, for instance, tend to have deep roots and thereby be less dependent on additional watering. Overwatering can in fact be more detrimental to a tree than helpful.
