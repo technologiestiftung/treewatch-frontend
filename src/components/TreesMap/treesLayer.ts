@@ -19,6 +19,8 @@ export const TREES_SOURCE_LAYER_ID = 'treesgeo'
 
 const NOWCAST_AVERAGE_PROPERTY = 'nowcast_values_stamm'
 
+// 2024-07-11: This project is about to be archived.
+// For archiving purposes, we render a selection of static trees on the map and make the the frontend independent of backend, database and vector tiles.
 export const TREES_SOURCE: SourceSpecification = {
   type: 'geojson',
   data: '/trees.geojson',

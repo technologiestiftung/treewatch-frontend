@@ -108,6 +108,10 @@ export const WaterSupplyLegend: FC<WaterSupplyLegendType> = ({
           {children}
         </div>
       </div>
+      {
+        // 2024-07-11: This project is about to be archived.
+        // For archiving purposes, we render a hint for the user that the data is demo data.
+      }
       <div className="w-full mt-2">
         <div
           className={classNames(

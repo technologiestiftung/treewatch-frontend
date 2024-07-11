@@ -10,6 +10,9 @@ export type ShadingType = {
 
 /**
  * Fetches the current shading data for a tree.
+ * 2024-07-11: This project is about to be archived.
+ * For archiving purposes, we make the project independent of the backend, database and vector tiles.
+ * The shading data generated here is taken from the static trees.geojson file.
  * @param treeId string
  * @param csrfToken string
  * @returns Promise<number | undefined>

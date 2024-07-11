@@ -36,6 +36,13 @@ export interface TreesGeoJson {
   features: TreeGeoJsonFeature[]
 }
 
+/**
+ * 2024-07-11: This project is about to be archived.
+ * For archiving purposes, we make the project independent of the backend, database and vector tiles.
+ * The tree data here is taken from the static trees.geojson file.
+ * @param treeId
+ * @returns
+ */
 export const useTreeData: UseTreeDataType = (treeId) => {
   async function fetchData(): Promise<TreeDataType> {
     const response = await fetch(`/trees.geojson`)

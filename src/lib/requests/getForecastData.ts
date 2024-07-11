@@ -39,6 +39,9 @@ export type ForecastDataType = {
 
 /**
  * Fetches the forecast data for a tree (maximum 14 days).
+ * 2024-07-11: This project is about to be archived.
+ * For archiving purposes, we make the project independent of the backend, database and vector tiles.
+ * The forecast data generated here is random.
  * @param treeId string
  * @returns Promise<ForecastDataType[] | undefined>
  */

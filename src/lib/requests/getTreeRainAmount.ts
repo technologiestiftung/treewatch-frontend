@@ -4,6 +4,9 @@ export type TreeRainAmountType = number
 
 /**
  * Fetches the rain data for a tree (in mm for the current day).
+ * 2024-07-11: This project is about to be archived.
+ * For archiving purposes, we make the project independent of the backend, database and vector tiles.
+ * The rain data is taken from the static trees.geojson file.
  * @param treeId string
  * @returns Promise<TreeRainAmountType[] | undefined>
  */
