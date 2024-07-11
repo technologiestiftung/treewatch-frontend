@@ -188,7 +188,8 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
             'md:border-l md:border-r border-gray-200',
             'row-start-2 row-span-1',
             'grid grid-cols-1 grid-rows-auto',
-            'motion-safe:animate-slide-up'
+            'motion-safe:animate-slide-up',
+            'mt-12 lg:mt-0'
           )}
         >
           <div

@@ -82,6 +82,8 @@
     "contentsLink": "Inhalte"
   },
   "legend": {
+    "demoDataTitle": "DEMO:",
+    "demoDataHint": "Diese Karte zeigt exemplarische Daten.",
     "map": {
       "title": "Wasserversorgung",
       "levels": {

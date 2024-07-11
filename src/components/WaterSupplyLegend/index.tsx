@@ -108,6 +108,23 @@ export const WaterSupplyLegend: FC<WaterSupplyLegendType> = ({
           {children}
         </div>
       </div>
+      <div className="w-full mt-2">
+        <div
+          className={classNames(
+            className,
+            'text-xs',
+            'ml-2 lg:ml-4 pointer-events-auto',
+            'w-[176px] min-w-[80px]',
+            'py-2 px-3',
+            'bg-white',
+            'rounded border border-gray-300',
+            'shadow-md'
+          )}
+        >
+          <span className="font-bold">{t('legend.demoDataTitle')}</span>{' '}
+          {t('legend.demoDataHint')}
+        </div>
+      </div>
     </div>,
     bodyNode
   )
