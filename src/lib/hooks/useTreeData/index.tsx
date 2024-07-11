@@ -7,7 +7,7 @@ type UseTreeDataType = (treeid: string | undefined) => {
   error: Error | null
 }
 
-interface TreeGeoJsonFeature {
+export interface TreeGeoJsonFeature {
   type: string
   geometry: {
     type: string
@@ -16,14 +16,22 @@ interface TreeGeoJsonFeature {
   properties: {
     trees_id: string
     nowcast_values_stamm: number
+    nowcast_values_30cm: number
+    nowcast_values_60cm: number
+    nowcast_values_90cm: number
     trees_lat: number
     trees_lng: number
     baumscheibe_m2: number
     trees_stammumfg: number
+    shading_spring: number
+    shading_summer: number
+    shading_fall: number
+    shading_winter: number
+    rainfall_in_mm: number
   }
 }
 
-interface TreesGeoJson {
+export interface TreesGeoJson {
   type: string
   features: TreeGeoJsonFeature[]
 }

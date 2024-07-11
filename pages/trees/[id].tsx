@@ -99,7 +99,9 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
     data: nowcastData,
     error: nowcastError,
     isLoading: nowcastIsLoading,
-  } = useNowcastData(treeData?.id, csrfToken)
+  } = useNowcastData(treeData?.id)
+
+  console.log(nowcastData)
 
   const {
     data: shadingData,
