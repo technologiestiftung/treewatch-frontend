@@ -19,7 +19,9 @@ export const getShading = async (
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/shading.json`
+    `${
+      process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    }/shading.json`
   )
   if (!response.ok) {
     const txt = await response.text()
