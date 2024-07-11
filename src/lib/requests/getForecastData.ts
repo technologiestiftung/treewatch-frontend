@@ -19,6 +19,24 @@ export type ForecastDataType = {
   model_id?: string
 }
 
+// export const WATER_SUPPLY_STATUSES: WaterSupplyStatusType[] = [
+//   {
+//     suctionTensionRange: [0, 33],
+//     label: 'Gut',
+//     id: 'good',
+//   },
+//   {
+//     suctionTensionRange: [33, 81],
+//     label: 'Mäßig',
+//     id: 'medium',
+//   },
+//   {
+//     suctionTensionRange: [81, 270],
+//     label: 'Kritisch',
+//     id: 'critical',
+//   },
+// ]
+
 /**
  * Fetches the forecast data for a tree (maximum 14 days).
  * @param treeId string
@@ -34,12 +52,22 @@ export const getForecastData = (treeId: string): ForecastDataType[] => {
     const timestamp = new Date(
       today.getTime() + i * 24 * 60 * 60 * 1000
     ).toISOString()
+
+    let randomValue = Math.random() * 270
+    if (i > 0) {
+      const last = forecasts[i - 1]
+      const lastValue = last.value || 0
+      if (lastValue <= 33) {
+        randomValue = Math.random() * 81
+      }
+    }
+
     const forecast: ForecastDataType = {
       id: 0,
       timestamp: timestamp,
       tree_id: treeId,
       type_id: 4,
-      value: Math.random() * 270,
+      value: randomValue,
       created_at: new Date().toISOString(),
       model_id: 'Random Forest (simple)',
     }
