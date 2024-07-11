@@ -1,4 +1,4 @@
-import { getTreeData, TreeDataType } from '@lib/requests/getTreeData'
+import { TreeDataType } from '@lib/requests/getTreeData'
 import useSWR from 'swr'
 
 type UseTreeDataType = (treeid: string | undefined) => {
@@ -7,15 +7,78 @@ type UseTreeDataType = (treeid: string | undefined) => {
   error: Error | null
 }
 
+interface GeoJsonFeature {
+  type: string
+  geometry: {
+    type: string
+    coordinates: number[]
+  }
+  properties: {
+    trees_id: string
+    nowcast_values_stamm: number
+    trees_lat: number
+    trees_lng: number
+    baumscheibe_m2: number
+    trees_stammumfg: number
+  }
+}
+
+interface TreesGeoJson {
+  type: string
+  features: GeoJsonFeature[]
+}
+
 export const useTreeData: UseTreeDataType = (treeId) => {
-  const { data, error } = useSWR<TreeDataType[] | undefined, Error>(
+  async function fetchData(): Promise<TreeDataType> {
+    const response = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+      }/trees.geojson`
+    )
+
+    const trees = (await response.json()) as TreesGeoJson
+
+    const foundTree = trees.features.find(
+      (tree: any) => tree.properties.trees_id === treeId
+    )
+
+    return {
+      baumscheibe: foundTree?.properties.baumscheibe_m2,
+      id: foundTree?.properties.trees_id,
+      lat: foundTree?.properties.trees_lat,
+      lng: foundTree?.properties.trees_lng,
+      stammumfg: foundTree?.properties.trees_stammumfg,
+      street_tree: true,
+      art_bot: null,
+      art_dtsch: null,
+      baumhoehe: null,
+      bezirk: null,
+      created_at: null,
+      eigentuemer: null,
+      gattung: null,
+      gattung_deutsch: null,
+      geometry: null,
+      hausnr: null,
+      kennzeich: null,
+      kronedurch: null,
+      namenr: null,
+      pflanzjahr: null,
+      standalter: null,
+      standortnr: null,
+      strname: null,
+      updated_at: null,
+      zusatz: null,
+    } as TreeDataType
+  }
+
+  const { data, error } = useSWR<TreeDataType | undefined, Error>(
     `tree_data${treeId ? treeId : 'nodata'}`,
-    () => (treeId ? getTreeData(treeId) : undefined)
+    () => (treeId ? fetchData() : undefined)
   )
 
   return {
-    data: data && data.length > 0 ? data[0] : null,
-    isLoading: !data && !error,
+    data: data as TreeDataType,
+    isLoading: false,
     error: error || null,
   }
 }

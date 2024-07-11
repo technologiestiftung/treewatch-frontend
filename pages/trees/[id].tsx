@@ -93,6 +93,8 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
     isLoading: treeDataLoading,
   } = useTreeData(treeId)
 
+  console.log(treeData)
+
   const {
     data: nowcastData,
     error: nowcastError,
