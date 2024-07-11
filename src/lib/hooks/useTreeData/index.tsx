@@ -7,7 +7,7 @@ type UseTreeDataType = (treeid: string | undefined) => {
   error: Error | null
 }
 
-interface GeoJsonFeature {
+interface TreeGeoJsonFeature {
   type: string
   geometry: {
     type: string
@@ -25,7 +25,7 @@ interface GeoJsonFeature {
 
 interface TreesGeoJson {
   type: string
-  features: GeoJsonFeature[]
+  features: TreeGeoJsonFeature[]
 }
 
 export const useTreeData: UseTreeDataType = (treeId) => {
@@ -39,7 +39,7 @@ export const useTreeData: UseTreeDataType = (treeId) => {
     const trees = (await response.json()) as TreesGeoJson
 
     const foundTree = trees.features.find(
-      (tree: any) => tree.properties.trees_id === treeId
+      (tree: TreeGeoJsonFeature) => tree.properties.trees_id === treeId
     )
 
     return {
