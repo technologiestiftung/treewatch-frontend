@@ -30,11 +30,7 @@ interface TreesGeoJson {
 
 export const useTreeData: UseTreeDataType = (treeId) => {
   async function fetchData(): Promise<TreeDataType> {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-      }/trees.geojson`
-    )
+    const response = await fetch(`/trees.geojson`)
 
     const trees = (await response.json()) as TreesGeoJson
 
