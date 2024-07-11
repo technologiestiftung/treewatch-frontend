@@ -123,7 +123,7 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
     data: wateringData,
     error: wateringDataError,
     isLoading: wateringDataIsLoading,
-  } = useWateringData(treeData?.id, csrfToken)
+  } = useWateringData(treeData?.id)
 
   if (treeDataError) {
     void push('/404')
