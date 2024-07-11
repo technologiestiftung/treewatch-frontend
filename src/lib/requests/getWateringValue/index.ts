@@ -8,9 +8,7 @@
  * @param csrfToken string
  * @returns number | undefined
  */
-export const getWateringValue = async (
-  treeId: string
-): Promise<number | undefined> => {
+export const getWateringValue = (treeId: string): number | undefined => {
   if (!treeId) return
 
   if (Math.random() < 0.5) {
