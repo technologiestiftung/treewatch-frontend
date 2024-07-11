@@ -297,7 +297,7 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
                       >
                         <Button
                           primary
-                          href={`https://giessdenkiez.de/tree/${gdkTreeId}`}
+                          href={`https://giessdenkiez.de/map?treeId=${gdkTreeId}`}
                         >
                           <GdkIcon
                             color1={colors.white}
