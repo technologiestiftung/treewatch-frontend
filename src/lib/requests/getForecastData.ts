@@ -29,12 +29,24 @@ export const getForecastData = async (
 ): Promise<ForecastDataType[] | undefined> => {
   if (!treeId) return
 
-  const response = await fetch(`/forecast.json`)
-  const forecasts = (await response.json()) as ForecastDataType[]
-  const forecastsForTree = forecasts.filter(
-    (forecast: ForecastDataType) => forecast.tree_id === treeId
-  )
-  if (forecastsForTree) {
-    return forecastsForTree
+  const today = new Date()
+  const forecasts: ForecastDataType[] = []
+
+  for (let i = 0; i < 14; i++) {
+    const timestamp = new Date(
+      today.getTime() + i * 24 * 60 * 60 * 1000
+    ).toISOString()
+    const forecast: ForecastDataType = {
+      id: 0,
+      timestamp: timestamp,
+      tree_id: treeId,
+      type_id: 4,
+      value: Math.random() * 270,
+      created_at: new Date().toISOString(),
+      model_id: 'Random Forest (simple)',
+    }
+    forecasts.push(forecast)
   }
+
+  return forecasts
 }
