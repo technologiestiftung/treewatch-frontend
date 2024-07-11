@@ -18,7 +18,9 @@ export const getShading = async (
     return
   }
 
-  const response = await fetch('/shading.json')
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/shading.json`
+  )
   if (!response.ok) {
     const txt = await response.text()
     console.error(txt)

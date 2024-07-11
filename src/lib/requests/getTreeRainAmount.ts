@@ -13,7 +13,9 @@ export const getTreeRainAmount = async (
   treeId: string
 ): Promise<TreeRainAmountType | undefined> => {
   if (!treeId) return
-  const response = await fetch('/rainfall.json')
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/rainfall.json`
+  )
   if (!response.ok) {
     const txt = await response.text()
     console.error(txt)
