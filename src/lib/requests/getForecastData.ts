@@ -24,10 +24,8 @@ export type ForecastDataType = {
  * @param treeId string
  * @returns Promise<ForecastDataType[] | undefined>
  */
-export const getForecastData = async (
-  treeId: string
-): Promise<ForecastDataType[] | undefined> => {
-  if (!treeId) return
+export const getForecastData = (treeId: string): ForecastDataType[] => {
+  if (!treeId) return []
 
   const today = new Date()
   const forecasts: ForecastDataType[] = []
