@@ -110,8 +110,7 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
   } = useShadingData(treeData?.id)
 
   const { data: forecastData, error: forecastError } = useForecastData(
-    treeData?.id,
-    csrfToken
+    treeData?.id
   )
 
   const { data: gdkTreeId, isLoading: gdkTreeIdIsLoading } = useGdkTreeId(
