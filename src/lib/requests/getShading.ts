@@ -24,7 +24,7 @@ export const getShading = async (
     (tree: TreeGeoJsonFeature) => tree.properties.trees_id === treeId
   )
   if (foundTree && currentSeason !== undefined) {
-    return foundTree.properties[`shading_${currentSeason}`] as number
+    return foundTree.properties[`shading_${currentSeason}`]
   }
   return undefined
 }
