@@ -114,7 +114,7 @@ export const useFeedbackData: UseFeedbackDataType = (treeId, csrfToken) => {
       if (!treeId) return
       setIssueError(null)
       try {
-        await reportIssue({ issueTypeId, treeId, csrfToken })
+        // await reportIssue({ issueTypeId, treeId, csrfToken })
         window.localStorage.setItem(
           getLocalStorageKey(treeId, issueTypeId),
           new Date().toISOString()
