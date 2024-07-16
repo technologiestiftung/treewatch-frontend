@@ -16,7 +16,7 @@ type UseFeedbackDataType = (treeId: string | undefined) => {
   issues: IssueTypeType[] | null
   isLoading: boolean
   error: string | null
-  reportIssue: (issueTypeId: number) => Promise<void>
+  reportIssue: (issueTypeId: number) => void
 }
 
 const getIssueTypes = async (treeId: string): Promise<IssueTypeType[]> => {
@@ -105,7 +105,7 @@ export const useFeedbackData: UseFeedbackDataType = (treeId) => {
       })) || null,
     isLoading: data === null,
     error: issueError || sdkError?.message || null,
-    reportIssue: async (issueTypeId: number): Promise<void> => {
+    reportIssue: (issueTypeId: number): void => {
       if (!treeId) return
       setIssueError(null)
       try {
