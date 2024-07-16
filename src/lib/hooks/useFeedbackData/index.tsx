@@ -1,8 +1,6 @@
-import { reportIssue } from '@lib/requests/reportIssue'
-
+import { getIssueTypesData } from '@lib/requests/getIssueTypesData'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
-import { getIssueTypesData } from '@lib/requests/getIssueTypesData'
 
 const LOCAL_STORAGE_PREFIX = 'issue'
 
@@ -14,10 +12,7 @@ export interface IssueTypeType {
   alreadyReported: boolean
 }
 
-type UseFeedbackDataType = (
-  treeId: string | undefined,
-  csrfToken: string
-) => {
+type UseFeedbackDataType = (treeId: string | undefined) => {
   issues: IssueTypeType[] | null
   isLoading: boolean
   error: string | null
@@ -83,7 +78,7 @@ const getIfAlreadyReported = (
   return false
 }
 
-export const useFeedbackData: UseFeedbackDataType = (treeId, csrfToken) => {
+export const useFeedbackData: UseFeedbackDataType = (treeId) => {
   const {
     data,
     error: sdkError,

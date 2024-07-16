@@ -15,12 +15,10 @@ interface FeedbackRequestsListPropType {
 
 export const FeedbackRequestsList: FC<FeedbackRequestsListPropType> = ({
   treeData,
-  csrfToken,
 }) => {
   const { t } = useTranslation('common')
   const { issues, reportIssue, isLoading, error } = useFeedbackData(
-    treeData?.id,
-    csrfToken
+    treeData?.id
   )
   const [openedIssueModal, setOpenedIssueModal] =
     useState<IssueTypeType | null>(null)
