@@ -1,4 +1,11 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import { TreeDataType } from '@lib/requests/getTreeData'
+import { ViewportProps } from '@lib/types/map'
+import {
+  NEXT_PUBLIC_MAPTILER_BASEMAP_URL,
+  NEXT_PUBLIC_MAPTILER_KEY,
+} from '@lib/utils/envUtil'
+import { mapRawQueryToState } from '@lib/utils/queryUtil'
+import classNames from 'classnames'
 import maplibregl, {
   AttributionControl,
   GeolocateControl,
@@ -7,25 +14,17 @@ import maplibregl, {
   MapGeoJSONFeature,
   NavigationControl,
 } from 'maplibre-gl'
-import { mapRawQueryToState } from '@lib/utils/queryUtil'
 import { useRouter } from 'next/router'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
-import { ViewportProps } from '@lib/types/map'
+import { MapTilerLogo } from './MapTilerLogo'
 import {
-  TREES_LAYER_ID,
+  TREES_ID_KEY,
   TREES_LAYER,
+  TREES_LAYER_ID,
   TREES_SOURCE,
   TREES_SOURCE_ID,
-  TREES_SOURCE_LAYER_ID,
-  TREES_ID_KEY,
 } from './treesLayer'
-import { MapTilerLogo } from './MapTilerLogo'
-import classNames from 'classnames'
-import {
-  NEXT_PUBLIC_MAPTILER_BASEMAP_URL,
-  NEXT_PUBLIC_MAPTILER_KEY,
-} from '@lib/utils/envUtil'
-import { TreeDataType } from '@lib/requests/getTreeData'
 
 interface OnSelectOutput {
   id: string
@@ -247,7 +246,6 @@ export const TreesMap: FC<MapProps> = ({
         map.current.setFeatureState(
           {
             source: TREES_SOURCE_ID,
-            sourceLayer: TREES_SOURCE_LAYER_ID,
             id: currentSelectedTreeId,
           },
           { selected: true }
@@ -263,7 +261,6 @@ export const TreesMap: FC<MapProps> = ({
         map.current.setFeatureState(
           {
             source: TREES_SOURCE_ID,
-            sourceLayer: TREES_SOURCE_LAYER_ID,
             id: hoveredTreeId,
           },
           { hover: false }
@@ -276,7 +273,6 @@ export const TreesMap: FC<MapProps> = ({
         map.current.setFeatureState(
           {
             source: TREES_SOURCE_ID,
-            sourceLayer: TREES_SOURCE_LAYER_ID,
             id: e.features[0].id,
           },
           { hover: true }
@@ -291,7 +287,6 @@ export const TreesMap: FC<MapProps> = ({
         map.current.setFeatureState(
           {
             source: TREES_SOURCE_ID,
-            sourceLayer: TREES_SOURCE_LAYER_ID,
             id: hoveredTreeId,
           },
           { hover: false }
@@ -345,7 +340,6 @@ export const TreesMap: FC<MapProps> = ({
       map.current.setFeatureState(
         {
           source: TREES_SOURCE_ID,
-          sourceLayer: TREES_SOURCE_LAYER_ID,
           id: treeIdToSelect,
         },
         { selected: true }
@@ -360,7 +354,6 @@ export const TreesMap: FC<MapProps> = ({
       map.current.setFeatureState(
         {
           source: TREES_SOURCE_ID,
-          sourceLayer: TREES_SOURCE_LAYER_ID,
           id: currentSelectedTreeId,
         },
         { selected: false }

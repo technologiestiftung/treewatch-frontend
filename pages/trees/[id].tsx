@@ -97,17 +97,16 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
     data: nowcastData,
     error: nowcastError,
     isLoading: nowcastIsLoading,
-  } = useNowcastData(treeData?.id, csrfToken)
+  } = useNowcastData(treeData?.id)
 
   const {
     data: shadingData,
     error: shadingError,
     isLoading: shadingIsLoading,
-  } = useShadingData(treeData?.id, csrfToken)
+  } = useShadingData(treeData?.id)
 
   const { data: forecastData, error: forecastError } = useForecastData(
-    treeData?.id,
-    csrfToken
+    treeData?.id
   )
 
   const { data: gdkTreeId, isLoading: gdkTreeIdIsLoading } = useGdkTreeId(
@@ -124,7 +123,7 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
     data: wateringData,
     error: wateringDataError,
     isLoading: wateringDataIsLoading,
-  } = useWateringData(treeData?.id, csrfToken)
+  } = useWateringData(treeData?.id)
 
   if (treeDataError) {
     void push('/404')
@@ -185,7 +184,8 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
             'md:border-l md:border-r border-gray-200',
             'row-start-2 row-span-1',
             'grid grid-cols-1 grid-rows-auto',
-            'motion-safe:animate-slide-up'
+            'motion-safe:animate-slide-up',
+            'mt-12 lg:mt-0'
           )}
         >
           <div
@@ -297,7 +297,7 @@ const TreePage: TreePageWithLayout = ({ treeId, csrfToken }) => {
                       >
                         <Button
                           primary
-                          href={`https://giessdenkiez.de/tree/${gdkTreeId}`}
+                          href={`https://giessdenkiez.de/map?treeId=${gdkTreeId}`}
                         >
                           <GdkIcon
                             color1={colors.white}

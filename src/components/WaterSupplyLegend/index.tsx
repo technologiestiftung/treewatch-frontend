@@ -108,6 +108,27 @@ export const WaterSupplyLegend: FC<WaterSupplyLegendType> = ({
           {children}
         </div>
       </div>
+      {
+        // 2024-07-11: This project is about to be archived.
+        // For archiving purposes, we render a hint for the user that the data is demo data.
+      }
+      <div className="w-full mt-2">
+        <div
+          className={classNames(
+            className,
+            'text-xs',
+            'ml-2 lg:ml-4 pointer-events-auto',
+            'w-[176px] min-w-[80px]',
+            'py-2 px-3',
+            'bg-white',
+            'rounded border border-gray-300',
+            'shadow-md'
+          )}
+        >
+          <span className="font-bold">{t('legend.demoDataTitle')}</span>{' '}
+          {t('legend.demoDataHint')}
+        </div>
+      </div>
     </div>,
     bodyNode
   )

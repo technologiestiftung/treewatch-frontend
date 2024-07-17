@@ -11,13 +11,12 @@ interface useForecastDataReturnType {
 }
 
 export const useForecastData = (
-  treeId: string | undefined,
-  csrfToken: string
+  treeId: string | undefined
 ): useForecastDataReturnType => {
   const params = [`Forecast - Tree ID - ${treeId || 'nodata'}`]
   const { data, error } = useSWR<ForecastDataType[] | undefined, Error>(
     params,
-    () => (treeId ? getForecastData(treeId, csrfToken) : undefined)
+    () => (treeId ? getForecastData(treeId) : undefined)
   )
 
   return {

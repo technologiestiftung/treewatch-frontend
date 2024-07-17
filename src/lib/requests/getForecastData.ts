@@ -1,6 +1,3 @@
-import { getBaseUrl } from '@lib/utils/urlUtil'
-import { startOfYesterday } from 'date-fns'
-
 /**
  * According to the database schema all values except id are nullable.
  */
@@ -22,52 +19,63 @@ export type ForecastDataType = {
   model_id?: string
 }
 
-const TABLE_NAME = 'forecast'
-const TREE_ID_COLUMN_NAME = 'tree_id'
-const TYPE_ID_COLUMN_NAME = 'type_id'
-const TYPE_ID_FOR_AVERAGE = '4'
-
-const TIMESTAMP_COLUMN = 'timestamp'
-const TODAY = startOfYesterday().toISOString()
-const FORECAST_MAX_ROWS = 13
+// export const WATER_SUPPLY_STATUSES: WaterSupplyStatusType[] = [
+//   {
+//     suctionTensionRange: [0, 33],
+//     label: 'Gut',
+//     id: 'good',
+//   },
+//   {
+//     suctionTensionRange: [33, 81],
+//     label: 'Mäßig',
+//     id: 'medium',
+//   },
+//   {
+//     suctionTensionRange: [81, 270],
+//     label: 'Kritisch',
+//     id: 'critical',
+//   },
+// ]
 
 /**
  * Fetches the forecast data for a tree (maximum 14 days).
+ * 2024-07-11: This project is about to be archived.
+ * For archiving purposes, we make the project independent of the backend, database and vector tiles.
+ * The forecast data generated here is random.
  * @param treeId string
  * @returns Promise<ForecastDataType[] | undefined>
  */
-export const getForecastData = async (
-  treeId: string,
-  csrfToken: string
-): Promise<ForecastDataType[] | undefined> => {
-  if (!treeId) return
+export const getForecastData = (treeId: string): ForecastDataType[] => {
+  if (!treeId) return []
 
-  const REQUEST_URL = `${getBaseUrl()}/api/ml-api-passthrough/${TABLE_NAME}`
+  const today = new Date()
+  const forecasts: ForecastDataType[] = []
 
-  const REQUEST_PARAMS = new URLSearchParams({
-    [TREE_ID_COLUMN_NAME]: `eq.${treeId}`,
-    [TYPE_ID_COLUMN_NAME]: `eq.${TYPE_ID_FOR_AVERAGE}`,
-    [TIMESTAMP_COLUMN]: `gte.${TODAY}`,
-    order: `${TIMESTAMP_COLUMN}`,
-    limit: `${FORECAST_MAX_ROWS}`,
-    offset: '1',
-  })
+  for (let i = 0; i < 14; i++) {
+    const timestamp = new Date(
+      today.getTime() + i * 24 * 60 * 60 * 1000
+    ).toISOString()
 
-  const response = await fetch(`${REQUEST_URL}?${REQUEST_PARAMS.toString()}`, {
-    method: 'POST',
-    headers: {
-      'CSRF-Token': csrfToken,
-      'Content-Type': 'application/json',
-    },
-  })
+    let randomValue = Math.random() * 270
+    if (i > 0) {
+      const last = forecasts[i - 1]
+      const lastValue = last.value || 0
+      if (lastValue <= 33) {
+        randomValue = Math.random() * 81
+      }
+    }
 
-  if (!response.ok) {
-    const txt = await response.text()
-    console.error(txt)
-    throw new Error(txt)
+    const forecast: ForecastDataType = {
+      id: 0,
+      timestamp: timestamp,
+      tree_id: treeId,
+      type_id: 4,
+      value: randomValue,
+      created_at: new Date().toISOString(),
+      model_id: 'Random Forest (simple)',
+    }
+    forecasts.push(forecast)
   }
 
-  const { data } = (await response.json()) as { data: ForecastDataType[] }
-
-  return data
+  return forecasts
 }

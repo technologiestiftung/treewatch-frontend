@@ -15,12 +15,12 @@ export const FeedbackConfirmation: FC = () => {
         'mt-4'
       )}
     >
-      <h4 className="font-bold">{t('feedback.confirmationTitle')}</h4>
+      <h4 className="font-bold">{t('feedback.demoTitle')}</h4>
       <div className="row-span-2 flex items-center">
         <CheckIcon color1={colors.scale['good']} />
       </div>
       <p className="font-serif text-gray-500">
-        {t('feedback.confirmationDescription')}
+        {t('feedback.demoDescription')}
       </p>
     </div>
   )
