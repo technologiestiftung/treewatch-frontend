@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Missnutzung der Baumscheibe",
+    "description": "Die Baumscheibe (nicht versiegelte Fläche) am Standort eines Baums wir oft durch falsch parkende Autos, illegalen Müll-Entsorgungen, wie bspw.: alte Waschmaschinen oder Bauschutt, missbraucht. Melde uns bitte, wenn die Baumscheibe seit längerem zugestellt ist.",
+    "image_url": "/images/issues/missnutzung-baumscheibe.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Baumschäden",
+    "description": "Baumschäden, wie bspw. abgeknickte Äste, stellen eine Gefahr für den Straßenraum dar und können die Vitalität eines Baumes nachhaltig einschränken. Melde uns bitte, wenn dieser Baum einen Schaden hat.",
+    "image_url": "/images/issues/baumschaeden.jpg"
+  }
+]

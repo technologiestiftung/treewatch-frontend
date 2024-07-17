@@ -82,6 +82,8 @@
     "contentsLink": "Inhalte"
   },
   "legend": {
+    "demoDataTitle": "DEMO:",
+    "demoDataHint": "Diese Karte zeigt exemplarische Daten.",
     "map": {
       "title": "Wasserversorgung",
       "levels": {
@@ -178,7 +180,9 @@
     "modalConfirm": "Melden",
     "modalCancel": "Abbrechen",
     "confirmationTitle": "Danke! Erfolgreich gemeldet!",
+    "demoTitle": "Demo-Modus aktiv",
     "confirmationDescription": "Ab morgen kannst du wieder etwas melden",
+    "demoDescription": "Diese Funktion ist im Demo-Modus nicht aktiv, es wurde nichts gemeldet.",
     "loading": "Infos werden geladen...",
     "error": "Es ist beim Laden der Infos ein Fehler aufgetreten:"
   }

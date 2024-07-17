@@ -8,12 +8,11 @@ export interface useWateringDataReturnType {
 }
 
 export const useWateringData = (
-  treeId: string | undefined,
-  csrfToken: string
+  treeId: string | undefined
 ): useWateringDataReturnType => {
   const params = [`Watering - Tree ID - ${treeId || 'nodata'}`]
   const { data, error } = useSWR<number | undefined, Error>(params, () =>
-    treeId ? getWateringValue(treeId, csrfToken) : undefined
+    treeId ? getWateringValue(treeId) : undefined
   )
 
   return {

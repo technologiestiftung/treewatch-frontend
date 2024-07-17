@@ -1,5 +1,4 @@
 import { WATER_SUPPLY_STATUSES } from '@lib/utils/mapSuctionTensionToStatus'
-import { startOfYesterday } from 'date-fns'
 import { LayerSpecification, SourceSpecification } from 'maplibre-gl'
 import colors from '../../style/colors'
 
@@ -20,12 +19,15 @@ export const TREES_SOURCE_LAYER_ID = 'treesgeo'
 
 const NOWCAST_AVERAGE_PROPERTY = 'nowcast_values_stamm'
 
+// 2024-07-11: This project is about to be archived.
+// For archiving purposes, we render a selection of static trees on the map and make the the frontend independent of backend, database and vector tiles.
 export const TREES_SOURCE: SourceSpecification = {
-  type: 'vector',
-  tiles: [process.env.NEXT_PUBLIC_TREE_TILES_URL as string],
-  maxzoom: 14,
-  minzoom: 0,
+  type: 'geojson',
+  data: '/trees.geojson',
   promoteId: TREES_ID_KEY,
+  cluster: true,
+  clusterMaxZoom: 14,
+  clusterRadius: 5,
 }
 
 const CIRCLE_STROKE_WIDTH = {
@@ -47,22 +49,10 @@ const getColorScale = (idSuffix = ''): (string | number)[] => {
   }).slice(0, -1) // Removes the last number value because it not needed anymore
 }
 
-/**
- * Maplibre expression to check whether a nowcast timestamp is older than the start of this day (compares the string values which is not ideal, but there doesn't seem to be a way to cast to dates via expressions).
- */
-const IS_OUTDATED_NOWCAST = [
-  '<=',
-  ['get', 'nowcast_timestamp_stamm'],
-  startOfYesterday().toISOString(),
-]
-
-const PARTICIPATING_DISTRICTS = ['Mitte', 'Neukölln']
-
 export const TREES_LAYER: LayerSpecification = {
   id: TREES_LAYER_ID,
   type: 'circle',
   source: TREES_SOURCE_ID,
-  'source-layer': TREES_SOURCE_LAYER_ID,
   maxzoom: 24,
   minzoom: 0,
   layout: {
@@ -71,9 +61,13 @@ export const TREES_LAYER: LayerSpecification = {
   paint: {
     'circle-color': [
       'case',
-      ['all', ['has', NOWCAST_AVERAGE_PROPERTY], ['!', IS_OUTDATED_NOWCAST]],
+      [
+        'all',
+        ['has', NOWCAST_AVERAGE_PROPERTY],
+        ['!=', ['get', NOWCAST_AVERAGE_PROPERTY], null],
+      ],
       ['step', ['get', NOWCAST_AVERAGE_PROPERTY], ...getColorScale()],
-      'rgba(255,255,255,0)',
+      'rgba(0, 0, 0, 0)',
     ],
     'circle-stroke-width': [
       'case',
@@ -88,22 +82,12 @@ export const TREES_LAYER: LayerSpecification = {
     ],
     'circle-stroke-color': [
       'case',
-      ['all', ['has', NOWCAST_AVERAGE_PROPERTY], ['!', IS_OUTDATED_NOWCAST]],
+      ['has', NOWCAST_AVERAGE_PROPERTY],
       ['step', ['get', NOWCAST_AVERAGE_PROPERTY], ...getColorScale('-dark')],
       colors.gray[400],
     ],
-    'circle-opacity': [
-      'case',
-      ['in', ['get', 'trees_bezirk'], ['literal', PARTICIPATING_DISTRICTS]],
-      1,
-      0.2,
-    ],
-    'circle-stroke-opacity': [
-      'case',
-      ['in', ['get', 'trees_bezirk'], ['literal', PARTICIPATING_DISTRICTS]],
-      1,
-      0.4,
-    ],
+    'circle-opacity': 1,
+    'circle-stroke-opacity': 1,
     'circle-radius': [
       'interpolate',
       ['exponential', 0.5],

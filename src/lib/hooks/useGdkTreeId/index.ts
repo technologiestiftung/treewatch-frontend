@@ -1,5 +1,4 @@
-import { GdkTreeIdReturnType, getGdkTreeId } from '@lib/requests/getGdkTreeId'
-import useSWR from 'swr'
+import { GdkTreeIdReturnType } from '@lib/requests/getGdkTreeId'
 
 export interface useGdkTreeIdReturnType {
   isLoading: boolean
@@ -10,15 +9,9 @@ export interface useGdkTreeIdReturnType {
 export const useGdkTreeId = (
   treeId: string | undefined
 ): useGdkTreeIdReturnType => {
-  const params = [`GDK Tree ID - Tree ID - ${treeId || 'nodata'}`]
-  const { data, error } = useSWR<
-    useGdkTreeIdReturnType['data'] | undefined,
-    Error
-  >(params, () => (treeId ? getGdkTreeId(treeId) : undefined))
-
   return {
-    isLoading: !data && !error,
-    data: data || null,
-    error: error || null,
+    isLoading: false,
+    data: treeId || null,
+    error: null,
   }
 }

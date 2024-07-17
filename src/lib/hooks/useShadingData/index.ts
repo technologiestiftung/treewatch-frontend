@@ -8,12 +8,11 @@ export interface useShadingDataReturnType {
 }
 
 export const useShadingData = (
-  treeId: string | undefined,
-  csrfToken: string
+  treeId: string | undefined
 ): useShadingDataReturnType => {
   const params = [`Shading - Tree ID - ${treeId || 'nodata'}`]
   const { data, error } = useSWR<number | undefined, Error>(params, () =>
-    treeId ? getShading(treeId, csrfToken) : undefined
+    treeId ? getShading(treeId) : undefined
   )
 
   return {
