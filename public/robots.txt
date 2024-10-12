@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /wp-admin/
+Allow: /
+
+Sitemap: https://baumblick.qtrees.ai/sitemap_index.xml
